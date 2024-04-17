@@ -1,3 +1,5 @@
+# Sistema usando Flask, JavaScript, MySQL e HTML/CSS
+
 import json
 from flask import Flask, redirect, url_for, request, render_template, session, flash
 from flask import jsonify
