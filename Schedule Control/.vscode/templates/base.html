@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% include 'links.html' %}
+    <title>{{ title }}</title>
+</head>
+<body>
+    
+    <header class="header">
+        {% block header %}    {% endblock %}
+    </header>
+
+    <div class="main">
+        {% block main %}    {% endblock %}
+
+    </div>
+     
+    <footer>
+        {% include 'footer.html' %} 
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

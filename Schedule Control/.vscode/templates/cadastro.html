@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+
+{% block main %}
+  <div class="col-md-12 text-center"></div>
+  <div class="row justify-content-center mt-5 "></div>
+
+
+</div>
+<br><br><br><br><br><br>
+<div class="row justify-content-center">
+  <div class="col-md-5 border rounded-3 p-4 shadow " style="background-color: #d3fad0;">
+
+    <form method="POST" >
+      <div class="mb-3">
+        <label for="email" class="form-label"><i class="fas fa-envelope"></i> Matricula:</label>
+        <div class="input-group">
+          <input type="text" name="matricula" id="matricula" class="form-control" placeholder="Matricula" required>
+        </div>
+      </div>
+    
+      <div class="mb-3">
+        <label for="pwd" class="form-label"><i class="fas fa-lock"></i> Senha:</label>
+        <div class="input-group">
+          <input type="password" placeholder="Senha" name="senha" id="senha" class="form-control" required >
+          <span class="input-group-text" onclick="togglePasswordVisibility()">
+              <i id="password-toggle-icon" class="fas fa-eye"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="confirmar_senha" class="form-label"><i class="fas fa-lock"></i> Confirmar Senha:</label>
+          <input type="password" placeholder="Confirmar Senha" id="confirmar_senha" name="confirmar_senha" class="form-control" required >
+        </div>
+        <div class="text-center">
+          <button type="submit" value="Cadastrar" class="btn btn-success" >Cadastrar</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+          </div>
+
+          
+          <script src="{{ url_for('static', filename='js/javascript_login.js') }}"></script>
+{% endblock %}

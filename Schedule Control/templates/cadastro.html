@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% include 'bases/head.html' %}
+
+{% block content %}
+<style>
+    body{
+        overflow-y: hidden;
+    }
+    button {
+        width: 100%;
+        height: 40px;
+        border-radius: 30px;
+        background: #8fcc84;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+        }
+
+    button:hover {
+        background: #7cce6d;
+        text-decoration: none;
+    }
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: hsla(0, 6%, 93%, 0.664);
+  text-align: center;
+  padding: 7px;
+  font-size: 15px;
+  color: #333;
+}
+</style>
+<body>
+	<section>
+        <div class="form-box">
+            <div class="form-value">
+                <form action="" method="POST">
+                    <h2>Cadastrar</h2>
+                    <div class="inputbox">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <input type="text" name="matricula" id="matricula" required>
+                        <label class="texto" for="matricula">Matrícula</label>
+                    </div>
+
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <input type="password" name="password" id="password" required>
+                        <label for="password">Senha</label>
+                    </div>
+
+					<div>
+					<label for="materias">Matérias:</label>						
+						<select id="materias" name="materias" multiple="multiple">
+							<option value="portugues">Português</option>
+							<option value="matematica">Matemática</option>
+							<option value="historia">História</option>
+							<option value="geografia">Geografia</option>
+						</select>
+					</div>
+                    <button type="submit">Cadastrar</button>
+                    <div class="register">
+                        <p><a class="cadastrar" href="/">Já possui uma conta? Entre</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+{% endblock %}
+
+{% include 'bases/footer.html' %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="{{ url_for('static', filename='js/js_cadastro.js')}}"></script>
+
+</html>
+				

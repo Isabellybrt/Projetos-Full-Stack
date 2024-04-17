@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+header {
+	z-index: 1001; /* Valor maior do que a barra lateral */
+	position: fixed;
+	width: 100%;
+	}
+button {
+	width: 100%;
+	height: 40px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	font-size: 1em;
+	font-weight: 600;
+}
+footer {
+  position: absolute; /* Altere para absolute */
+  bottom: 0;
+  width: 100%;
+  background-color: hsla(0, 6%, 93%, 0.664);
+  text-align: center;
+  padding: 7px;
+  font-size: 15px;
+  color: #333;
+}
+</style>
+<body style="background-color: #f8f9fa;">
+	<div class="container-fluid">
+        <div class="row">
+            <!-- Barra lateral fixa -->
+            <nav id="sidebar1" class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+						<li class="nav-item1">
+							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#agendarModal" data-hora="{{ horarios[index] }}" data-dias-semana="{{ dias_semana[col] }}">Agendar Aula</button>
+                        </li>
+                        <li class="nav-item1">
+							<button type="button" class="btn btn-danger nav-link cancelar-aula-btn">Cancelar Aula</button>
+                        </li>
+						{% if admin == True %}
+						<li class="nav-item1">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#horarioModal">Cadastrar Horário</button>
+						</li>
+						{% endif %}
+						<br>
+						<br>
+						<!-- {% if horarios_cancelados %}
+						{% for horario in horarios_cancelados %}
+						<li>{{ horario.horas }} na {{ horario.dias_semana }} está vago.</li>
+					  	{% endfor %}
+						{% endif %} -->
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+	<div class="containerTabela">
+		<br>
+		{% if dados %}
+		<script>
+			{% for message in get_flashed_messages(with_categories=true) %}
+				{% if message[0] == 'success' %}
+					alert("{{ message[1] }}");
+				{% elif message[0] == 'error' %}
+					alert("{{ message[1] }}");
+				{% endif %}
+			{% endfor %}
+		</script>
+		<h1 style="font-weight: bold;" >{{ turma.curso }} - {{ turma.turno }}</h1>
+		<h4 id="currentDay"></h4>
+		<table id="horarios-table" class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Horários</th>
+					{% for header in dados.cabecalho %}
+						<th>{{ header }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% set horarios = [
+					"07:00 - 08:00",
+					"08:00 - 09:00",
+					"09:00 - 10:00",
+					"10:00 - 10:10",
+					"10:10 - 11:10",
+					"11:10 - 12:10",
+					"12:10 - 13:20",
+					"13:20 - 14:20",
+					"14:20 - 15:20",
+					"15:20 - 15:30",
+					"15:30 - 16:30",
+					"16:30 - 17:30"
+				] %}
+				{% for index in range(horarios|length) %}
+				<tr>
+					<td>{{ horarios[index] }}</td>
+					{% for col in range(5) %}
+					<td
+						id="{{ col }}_{{ index }}"
+						class="clickable"
+						data-target="#cancelarAulaModal"
+						data-disciplina-nome="{{ dados.horarios[col][index] }}"
+						data-hora="{{ horarios[index] }}"
+						data-dias-semana="{{ dias_semana[col] }}">
+						{% if dados.horarios[col][index] == "Horário Vago" %}
+							Horário Vago
+						{% else %}
+							{{ dados.horarios[col][index] }}
+						{% endif %}
+					</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+				{% endif %}
+			</tbody>
+		</table>
+				  
+	</div>
+	<!--{% if horarios_cancelados %}
+	<div class='tabela_cancelados'>
+		<ul>
+			{% for horario in horarios_cancelados %}
+			  <li>{{ horario.horas }} na {{ horario.dias_semana }} está vago.</li>
+			{% endfor %}
+		  </ul>
+	</div>
+	{% endif %}
+	 Modal -->
+	<div class="modal fade" id="horarioModal" tabindex="-1" role="dialog" aria-labelledby="horarioModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="horarioModalLabel">Cadastrar Horário</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					
+					<!-- Formulário para cadastrar o horário -->
+					<form id="horarioForm" method="POST" action="{{ url_for('tabela', id=id) }}">
+						<input type="hidden" id="diasSemana" name="diasSemana" value="">
+						<input type="hidden" id="horas" name="horas" value="">
+						<input type="hidden" id="disciplina" name="disciplina" value="">
+						<input type="hidden" id="turma_id" name="turma_id" value="{{ id }}">
+						
+						<div class="form-group">
+							<label for="diasSemanaSelect">Dias da Semana</label>
+							<select class="form-control" id="diasSemanaSelect" required>
+								<option value="Segunda">Segunda</option>
+								<option value="Terça">Terça</option>
+								<option value="Quarta">Quarta</option>
+								<option value="Quinta">Quinta</option>
+								<option value="Sexta">Sexta</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="horasSelect">Horário</label>
+							<select class="form-control" id="horasSelect" required>
+								<option value="07:00 - 08:00">07:00 - 08:00</option>
+								<option value="08:00 - 09:00">08:00 - 09:00</option>
+								<option value="09:00 - 10:00">09:00 - 10:00</option>
+								<option value="10:10 - 11:10">10:10 - 11:10</option>
+								<option value="11:10 - 12:10">11:10 - 12:10</option>
+								<option value="13:20 - 14:20">13:20 - 14:20</option>
+								<option value="14:20 - 15:20">14:20 - 15:20</option>
+								<option value="15:30 - 16:30">15:30 - 16:30</option>
+								<option value="16:30 - 17:30">16:30 - 17:30</option>
+							</select>
+							<br>
+							<label for="disciplinaSelect">Matéria:</label>
+							<select class="form-control" id="disciplinaSelect">
+								{% for disciplina in disciplinas %}
+								<option value="{{ disciplina.nome }}">{{ disciplina.nome }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="submit" class="btn btn-primary" onclick="cadastrarHorario()">Cadastrar</button>
+						<input id="tipo" name="tipo" value="CadastrarHorario" style="display: none;">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal de Cancelar Aula -->
+		<div class="modal fade" id="cancelarAulaModal" tabindex="-1" role="dialog" aria-labelledby="cancelarAulaModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="cancelarAulaModalLabel">Cancelar Aula</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Selecione a data para cancelar a aula:</p>
+						<!-- Input para mostrar o calendário -->
+						<form method="POST" id="meuFormulario" action="{{ url_for('tabela', id=id) }}" >
+							<input type="hidden" id="turma_id" name="turma_id" value="{{ id }}">
+							<input type="hidden" name="tipo" id="tipo2" value="CancelarAula">
+							<input type="hidden" name="horas" id="horas">
+							<input type="hidden" name="diasSemana" id="diasSemana">
+							<input type="hidden" name="disciplina" id="disciplina">						
+							<div class="form-group">
+								<label for="dataAula">Data da Aula</label>
+								<input type="date" class="form-control" id="datacancelada" name="data_cancelada" required>
+							</div>
+							<button type="submit" class="btn btn-primary">Confirmar Cancelamento</button>
+						</form>
+				</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal de Agendamento -->
+		<div class="modal fade" id="agendarModal" tabindex="-1" role="dialog" aria-labelledby="agendarModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="agendarModalLabel">Agendar Aula</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form method="POST" action="{{ url_for('tabela', id=id) }}">
+							<input type="hidden" name="tipo" id="tipo3" value="AgendarAula">
+							<input type="hidden" id="hora_agendamento" name="hora_agendamento">
+							<input type="hidden" id="dias_semana_agendamento" name="dias_semana_agendamento">
+								
+								<div class="form-group">
+									<label for="dataAula">Data da Aula</label>
+									<input type="date" class="form-control" id="dataAula" name="data_aula" required>
+								</div>
+								<div class="form-group">
+									<label for="disciplinaSelect">Disciplina</label>
+									<select class="form-control" id="disciplinaSelect1" name="disciplina" required>
+										{% for disciplina in disciplinas %}
+											<option value="{{ disciplina.nome }}">{{ disciplina.nome }}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="diasSemanaSelect">Dias da Semana</label>
+									<select class="form-control" id="diasSemanaSelect1" name="dias_semana" required>
+										<option value="Segunda">Segunda</option>
+										<option value="Terça">Terça</option>
+										<option value="Quarta">Quarta</option>
+										<option value="Quinta">Quinta</option>
+										<option value="Sexta">Sexta</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="horasSelect">Horário</label>
+									<select class="form-control" id="horasSelect1" name="horas" required>
+										<option value="07:00 - 08:00">07:00 - 08:00</option>
+										<option value="08:00 - 09:00">08:00 - 09:00</option>
+										<option value="09:00 - 10:00">09:00 - 10:00</option>
+										<option value="10:10 - 11:10">10:10 - 11:10</option>
+										<option value="11:10 - 12:10">11:10 - 12:10</option>
+										<option value="13:20 - 14:20">13:20 - 14:20</option>
+										<option value="14:20 - 15:20">14:20 - 15:20</option>
+										<option value="15:30 - 16:30">15:30 - 16:30</option>
+										<option value="16:30 - 17:30">16:30 - 17:30</option>
+									</select>
+							</div>
+							<button type="submit" class="btn btn-primary">Agendar</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/cadastrar_horario.js')}}"></script>
+<script src="{{ url_for('static', filename='js/mensagem.js')}}"></script>
+<script src="{{ url_for('static', filename='js/cancelar_aula.js')}}"></script>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+</body>
+
+{% endblock %}
+
+{% include 'bases/footer.html' %}
+
+
+</html>

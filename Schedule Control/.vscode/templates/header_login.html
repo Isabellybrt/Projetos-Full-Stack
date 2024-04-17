@@ -1,0 +1,18 @@
+<html>
+<head>
+{% include 'links.html' %}
+</head>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: #d3fad0;">
+      <div class=" mt-1">
+        <p class="h2">AutoBell</p>
+      </div>
+      <div class="container-fluid">
+        <div class="navbar-brand ms-auto">
+            <img src= "{{ url_for('static', filename='imagens/IFPI.png') }}" title="IFPI" class="icon" style="width: 150px; height: 130px;">
+        </div>
+        <!-- <div>
+            <img src="{{ url_for('static', filename= 'imagens/lapec.png')}}" title="LAPEC" class="LAPEC" style="width: 210px; height: 220px;">
+          </div> -->
+      </div>
+    </nav>

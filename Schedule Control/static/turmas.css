@@ -1,0 +1,141 @@
+.invisible {
+    visibility: hidden;
+    display: none;
+}
+
+body {
+  margin-bottom: 70px; /* Ajuste conforme necessário com base na altura do seu footer */
+  overflow-x: hidden;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-bottom: 50% /* Adicione um espaço extra na parte inferior */
+}
+
+.container1{
+  padding-left: 10%;
+  padding-top: 1%;
+}
+
+.containerTabela {
+  position: absolute;
+  left: 23%;
+  top: 5%;
+  width: 65%; /* Adjust the width to fit the content within the body */
+}
+
+.tabela_cancelados {
+  position: fixed;
+  top: 10%;
+  right: 1%;
+  width: 250px; /* Adjust the width as needed */
+  background-color: #fff; /* Set the background color */
+  border: 1px solid #ddd; /* Add border for styling */
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a box shadow for depth */
+  z-index: 1000; /* Set a higher z-index to make sure it's on top of other elements */
+}
+
+.tabela_cancelados ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tabela_cancelados li {
+  margin-bottom: 10px;
+}
+
+
+
+.button-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10%;
+  margin-left: 2%;
+} 
+
+.btn {
+  margin-bottom: 10px;
+}
+
+#sidebar1 {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  background-color: rgba(210, 215, 220, 0.627); /* Ajuste o valor de opacidade conforme necessário */
+  backdrop-filter: blur(5px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 1, 1.1);
+}
+
+
+#content1 {
+  margin-left: 250px; /* Ajuste o valor de acordo com a largura da barra lateral */
+}
+
+
+.nav-item1 button {
+  position: relative; /* Adicionado para usar a posição relativa */
+  top: 80px; /* Ajuste a quantidade de deslocamento para baixo conforme necessário */
+  color: white;
+  text-decoration: none;
+}
+
+#botao_cadastrar{
+  color: white;
+}
+
+#horarios-table {
+  width: 100%; /* Use 100% width to fit the container */
+  margin-top: 19px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #0c141a;
+  table-layout: fixed;
+  box-shadow: 0px 4px 8px rgba(0, 0, 1, 1.1);
+}
+
+  #horarios-table th {
+  padding: 12px;
+  text-align: center;
+  background-color: #808080; /* Altere para o tom de cinza desejado */
+  color: #fff;
+  border: 1px solid #0a1116;
+  border-top-right-radius: 10px; /* Borda arredondada para o cabeçalho */
+  border-top-left-radius: 1%;
+}
+
+#horarios-table td {
+  padding: 12px;
+  text-align: center;
+  min-width: 40%;
+  width: 40%;
+  height: 60px; /* Definir altura fixa para as células */
+  vertical-align: middle;
+  line-height: 0.9;
+  border: 1px solid #0a1116;
+  word-wrap: break-word;
+}
+
+
+
+/* Seu CSS anterior continua aqui */
+#horarios-table td {
+  color: #000000;
+}
+
+#horarios-table tbody tr:nth-child(even) {
+  background-color: #ecf0f1; /* Cinza claro para linhas pares */
+}
+
+#horarios-table tbody td:hover {
+  background-color: #d5d9dc; /* Cinza mais escuro ao passar o mouse sobre a linha */
+}
+
+.hidden-discipline {
+  visibility: hidden;
+}

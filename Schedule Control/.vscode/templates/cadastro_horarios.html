@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+
+{% block main %}
+
+  <br><br><br><br><br><br><br><br>
+<div class="container-fluid">
+    <div class="form-group">
+      <form action="/receber_dados" method="post" id="formularioHorarios">
+      <div class="col-1 mt-3 mb-3">
+        <label for="input_horario" id="label_horario" class="h5">Horário:</label>
+        <input type="time" class="form-control" id="input_horario" name="input_horario" style="background-color: #d3fad0;">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3 mt-3">
+        <table id="horarios-table" class="table table-bordered" style="background-color: #66BB6A; color: white;">
+          <thead>
+            <tr>
+              <th>Dia da semana</th>
+            </tr>
+          </thead>
+          <tbody>
+              <th>hora</th>
+            <th> <i class="fas fa-pencil-alt fa-sm btn btn-primary edit-button"></i>
+             <i class="fas fa-trash fa-sm btn btn-danger edit-delite "></i> </th>
+          </tbody>
+      </table>
+          </div>
+          </div>
+  
+    <!-- <div class="row my-4">
+        <div class="col-sm-1">
+          <input type="checkbox" id="domingo" name="domingo" class="form-check-input form-check-input-lg">
+          <label for="domingo" class="h6">Domingo</label>
+        </div>
+        <div class="col-sm-1">
+          <input type="checkbox" id="segunda" name="segunda" class="form-check-input form-check-input-lg">
+          <label for="segunda" class="h6">Segunda</label>
+        </div>
+        <div class="col-sm-1">
+          <input type="checkbox" id="terca" name="terca" class="form-check-input form-check-input-lg">
+          <label for="terca" class="h6">Terça</label>
+        </div>
+        <div class="col-sm-1">
+          <input type="checkbox" id="quarta" name="quarta" class="form-check-input form-check-input-lg">
+          <label for="quarta" class="h6">Quarta</label>
+        </div>
+        <div class="col-sm-1">
+          <input type="checkbox" id="quinta" name="quinta" class="form-check-input form-check-input-lg">
+          <label for="quinta" class="h6">Quinta</label>
+        </div>
+        <div class="col-sm-1">
+          <input type="checkbox" id="sexta" name="sexta" class="form-check-input form-check-input-lg">
+          <label for="sexta" class="h6">Sexta</label>
+        </div>
+        <div class="col-sm-1">
+          <input type="checkbox" id="sabado" name="sabado" class="form-check-input form-check-input-lg">
+          <label for="sabado" class="h6">Sábado</label>
+        </div>
+      </div>
+    -->
+    <div class="col-md-4 text-md-end">
+      <button type="submit" class="btn btn-outline-success" id="salvar">Salvar</button>
+    </div>
+  </form>
+  
+    <!-- <div class="row">
+      <div class="col-6 mt-3">
+        <table id="horarios-table" class="table table-bordered" style="background-color: #66BB6A; color: white;">
+          <thead>
+            <tr>
+              <th>Horário</th>
+              <th>Dias Selecionados</th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div> -->
+    
+  
+    <script src="{{ url_for('static', filename='js/javascript_cadastro_horarios.js') }}"></script>
+
+{% endblock %}

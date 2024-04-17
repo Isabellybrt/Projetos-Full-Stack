@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% include 'header_login.html' %}
+{% endblock %}
+
+{% block main  %}
+
+            <br><br><br>
+            <div class="col-md-12 text-center"></div>
+            <div class="row justify-content-center mt-5 "></div>
+
+
+          </div>
+          <br><br><br><br><br><br>
+          <div class="row justify-content-center">
+            <div class="col-md-5 border rounded-3 p-4 shadow " style="background-color: #d3fad0;">
+
+              <form method="POST" >
+                <div class="mb-3">
+                  <label for="email" class="form-label"><i class="fas fa-envelope"></i> Matricula:</label>
+                  <div class="input-group">
+                    <input type="text" name="matricula" id="matricula" class="form-control" placeholder="Matricula">
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="pwd" class="form-label"><i class="fas fa-lock"></i> Senha:</label>
+                  <div class="input-group">
+                    <input type="password" placeholder="Senha" name="senha" id="senha" class="form-control" >
+                    <span class="input-group-text" onclick="exibirSenha()">
+                        <i id="password-toggle-icon" class="fas fa-eye"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-success" >Entrar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+                    </div>
+            
+    <script src="{{ url_for('static', filename='js/javascript_login.js') }}"></script>
+
+{% endblock %}

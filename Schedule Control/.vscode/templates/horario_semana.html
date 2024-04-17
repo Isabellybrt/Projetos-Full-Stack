@@ -1,0 +1,32 @@
+{% extends 'base.html ' %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+
+
+{% block main %}
+<br><br><br><br><br><br><br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3 mt-3">
+          <table id="horarios-table" class="table table-bordered" style="background-color: #66BB6A; color: white;">
+            <thead>
+              <tr>
+                <th>Dia da semana</th>
+              </tr>
+            </thead>
+            <tbody>
+                <th>hora</th>
+              <th> <i class="fas fa-pencil-alt fa-sm btn btn-primary edit-button"></i>
+               <i class="fas fa-trash fa-sm btn btn-danger edit-delite "></i> </th>
+            </tbody>
+            <tbody>
+              <th>  <a href="cadastro_horarios"><i class="fas fa-plus btn btn-success btn"></i></a>  Adicionar Horários</th>
+              
+            </tbody>
+        </table>
+            </div>
+            </div>
+
+{% endblock %}

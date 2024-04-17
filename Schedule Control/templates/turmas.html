@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html'%}
+
+{% block content %}
+<style>
+	body {
+            background-color: #f8f9fa;
+        }
+
+        .container1 {
+            margin-top: 50px;
+        }
+
+		h1 {
+			font-weight: bold;
+			color: #253649;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+			}
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .card-body {
+            background-color: #495057;
+        }
+
+        .card-title {
+            color: #b5d3d8;
+            font-size: 1.3rem;
+        }
+
+        .card-text {
+            color: white;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+        }
+		footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: hsla(0, 6%, 93%, 0.664);
+  text-align: center;
+  padding: 7px;
+  font-size: 15px;
+  color: #333;
+}
+</style>
+<body class="turmas">
+	<div class="container1">
+		<h1 style="font-weight: bold; font-size: 40px;">Turmas</h1>
+		<br>
+		<!-- {% if admin == True %}
+		<div class="row">
+			<div class="col-md-3">
+				<a href="/admin" class="btn btn-success" style="color: white;">Cadastros</a>
+			</div>
+		</div>
+		{% endif %} -->
+
+		<div class="row">
+			{% for turma in turmas %}
+                <div class="col-md-4">
+                    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header">{{ turma.ano }}</div>
+                        <div class="card-body">
+                            <a href="{{ url_for('tabela', id=turma.id) }}" style="text-decoration: none; color: white;">
+                                <h5 class="card-title">{{ turma.curso }}</h5>
+                                <h6 class="card-text">{{ turma.turno }}</h6>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+		</div>
+	</div>
+
+
+
+</body>
+<script src="{{ url_for('static', filename='js/card_turma.js')}}"></script>
+
+{% endblock %}
+
+{% include "bases/footer.html" %}
+</html>

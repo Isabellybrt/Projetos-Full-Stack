@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f8f9fa;
+		overflow-y: hidden;
+    }
+
+    .container1 {
+        margin-top: 50px;
+    }
+
+	h1 {
+			font-weight: bold;
+			color: #253649;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+			}
+
+    .d-flex {
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        margin: 10px;
+        transition: transform 0.3s;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		background-color: aliceblue;
+		transition: background-color 0.1s;
+		cursor: pointer;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+		background-color: rgb(224, 240, 255);
+
+    }
+
+    .card-body {
+        padding: 16px;
+		
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        color: #555;
+    }
+
+    .card-btn {
+        display: inline-block;
+        background-color: #73b5fc;
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .card-btn:hover {
+        background-color: #409bfc;
+		color: #fff;
+        padding: 8px 16px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+	footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: hsla(0, 6%, 93%, 0.664);
+  text-align: center;
+  padding: 7px;
+  font-size: 15px;
+  color: #333;
+}
+</style>
+<body class="turmas">
+    <div class="container1">
+        <h1 style="font-weight: bold;">Cadastros</h1>
+        <br>
+        <div class="d-flex">
+			<div class="card col-md-5">
+				<a href="/turmas" style="text-decoration: none; color: inherit;">
+					<div class="card-body">
+						<h5 class="card-title">Visualizar Turmas</h5>
+						<p class="card-text" style="margin-bottom: 11px;">Clique para visualizar as turmas cadastradas.</p>
+						<a href="/turmas" class="card-btn">Visualizar</a>
+					</div>
+				</a>
+			</div>
+
+            <div class="card col-md-5" data-toggle="modal" data-target="#cadastroTurmaModal">
+                <div class="card-body">
+                    <h5 class="card-title">Cadastrar Turma</h5>
+                    <p class="card-text">Clique para cadastrar uma turma.</p>
+                    <a href="#" class="card-btn">Cadastrar</a>
+                </div>
+            </div>
+		</div>
+
+		<div class="d-flex">
+            <div class="card col-md-5" data-toggle="modal" data-target="#cadastroDisciplinaModal">
+                <div class="card-body">
+                    <h5 class="card-title">Cadastrar Disciplina</h5>
+                    <p class="card-text">Clique para cadastrar uma disciplina.</p>
+                    <a href="#" class="card-btn">Cadastrar</a>
+                </div>
+            </div>
+
+            <div class="card col-md-5" data-toggle="modal" data-target="#adicionarGradeModal">
+                <div class="card-body">
+                    <h5 class="card-title">Adicionar Grade Curricular</h5>
+                    <p class="card-text">Clique para adicionar uma grade curricular.</p>
+                    <a href="#" class="card-btn">Adicionar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+	<!-- Modal de Cadastro de Turma -->
+	<div class="modal fade" id="cadastroTurmaModal" tabindex="-1" role="dialog" aria-labelledby="cadastroTurmaModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+					<h5 class="modal-title" id="cadastroTurmaModalLabel">Cadastrar Turma</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="POST">
+						<div class="form-group">
+							<label for="nomeTurma">Nome da Turma</label>
+							<input type="text" class="form-control" id="nomeTurma" name="nomeTurma" placeholder="Informe o nome da turma" required>
+						</div>
+						<div class="form-group">
+							<label for="anoTurma">Ano</label>
+							<input type="text" class="form-control" id="anoTurma" name="anoTurma" placeholder="Informe o ano da turma" required>
+						</div>
+						<div class="form-group">
+							<label for="turno">Turno</label>
+							<select class="form-control" id="turno" name="turnoTurma">
+								<option value="Manhã">Manhã</option>
+								<option value="Tarde">Tarde</option>
+								<option value="Noite">Noite</option>
+							</select>
+						</div>
+						<input id="tipo" name="tipo" value="turma" style="display: none;">
+					 
+						<button type="submit" id="recarregarPagina" type="button" class="btn btn-primary">Cadastrar</button>
+					</form>
+			</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- Modal de Cadastro de Disciplina -->
+	<div class="modal fade" id="cadastroDisciplinaModal" tabindex="-1" role="dialog" aria-labelledby="cadastroDisciplinaModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+					<h5 class="modal-title" id="cadastroDisciplinaModalLabel">Cadastrar Disciplina</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="nomeTurma">Nome da Disciplina</label>
+							<input type="text" class="form-control" id="nomeDisciplina" name="nomeDisciplina" placeholder="Informe o nome da Disciplina" required>
+						</div>
+						<div class="form-group">
+							<label for="anoTurma">Carga Horaria</label>
+                            <input type="text" class="form-control" id="cargaHoraria" name="cargaHoraria" placeholder="Informe a carga horaria" required>
+						</div>
+                        <input  id="tipo" name="tipo" value="disciplina" style="display: none;">
+
+						<button type="submit" id="recarregarPagina" type="button" class="btn btn-primary">Cadastrar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal para Adicionar Grade Curricular -->
+	<div class="modal fade" id="adicionarGradeModal" tabindex="-1" role="dialog" aria-labelledby="adicionarGradeModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+					<h5 class="modal-title" id="adicionarGradeModalLabel">Adicionar Grade Curricular</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+                    <!-- Campos dentro do formulário para adicionar grade curricular -->
+					<form method="POST">
+						<div class="form-group">
+							<label for="turma">Turma</label>
+							<select class="form-control" id="turma" name="turma_id">
+								{% for turma in turmas %}
+									<option value="{{ turma.id }}">{{ turma.curso }}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="disciplina">Disciplina</label>
+							<select class="form-control" id="disciplina" name="disciplina_id">
+								{% for disciplina in disciplinas %}
+									<option value="{{ disciplina.id }}">{{ disciplina.nome }}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<!-- Campos adicionais conforme necessário -->
+						<input id="tipo" name="tipo" value="oferta" style="display: none;">
+						<button type="submit" id="adicionarGrade" type="button" class="btn btn-primary">Adicionar</button>
+					</form>
+                </div>
+            </div>
+		</div>
+	</div>
+
+	{% for message in get_flashed_messages(with_categories=true) %}
+		<script>
+			{% if message[0] == 'success' %}
+				alert("{{ message[1] }}");
+			{% elif message[0] == 'error' %}
+				alert("{{ message[1] }}");
+			{% endif %}
+		</script>
+	{% endfor %}
+	<script src="{{ url_for('static', filename='js/cadastrar_grade.js')}}"></script>
+</body>
+
+{% endblock %}
+
+{% include 'bases/footer.html' %}
+
+</html>

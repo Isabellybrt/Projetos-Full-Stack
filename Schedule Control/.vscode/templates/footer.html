@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  {% include 'links.html' %}
+</head>
+
+<body>
+
+<br><br><br><br>
+<footer class="fixed-bottom">
+    <div class="container-fluid" id="footer">
+      <div class="row">
+      <div class="col-12 col-sm-6">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-between">
+            <div>
+              <div class="btn-group"> 
+                <a href="#" class="btn text-bg-light">About</a>
+                <a href="#" class="btn text-bg-light">Support</a>
+                <button type="button" class="btn dropdown-toggle text-bg-light" data-bs-toggle="dropdown">Contact</button>   
+              </div>
+              
+            </div>
+            <div>
+            </div>
+          </div>
+          <div class="col-12">
+            <ul class="nav">
+              <li class="nav-link"><i class="fab fa-facebook fa-2x " id="icon_footer"></i></li>
+              <li class="nav-link"><i class="fab fa-instagram fa-2x" id="icon_footer"></i></li>
+              <li class="nav-link"><i class="fab fa-whatsapp fa-2x" id="icon_footer"></i></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 text-center text-sm-end">
+        <img src="{{ url_for('static', filename='imagens/AutoBell.png') }}" class="rounded card-title" id="logo_footer" alt="Logo">
+      </div>
+      <div class="text-center" style=" padding: 20px;" >
+    &copy 2023 Desenvolvido por: <a href="#">Lapec</a>
+     
+    </div>
+    
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body>
+
+</html>

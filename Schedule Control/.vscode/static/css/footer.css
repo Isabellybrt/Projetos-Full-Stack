@@ -1,0 +1,25 @@
+#footer {
+   margin-bottom: 20px;
+   background-color: #0F441F;
+   color: white;
+   padding-top: 20px;
+ }
+ 
+ #logo_footer {
+   width: 120px;
+   height: 120px;
+ }
+ 
+ #icon_footer {
+   font-size: 1.5em;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 30px;
+   height: 30px;
+   border-radius: 40%;
+   text-align: center;
+   color: green;
+   background-color: white;
+   text-decoration: none;/* Remove sublinhado dos links */
+ }
